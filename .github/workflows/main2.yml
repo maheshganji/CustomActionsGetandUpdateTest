@@ -112,9 +112,7 @@ jobs:
           interval: '100'
           timeout: '3600'
       - name: Output of update
-        run: echo "The Status of Update Change Request Details => ${{ toJSON(steps.create2.outputs.number) }}"
-      - name: Output of update
-        run: echo "The Status of Update Change Request Details => ${{ fromJSON(steps.create2.outputs.number) }}"
+        run: echo "The Status of Update Change Request Details => ${{ steps.create2.outputs) }}"
       - name: Checkout
         uses: actions/checkout@v3
       - name: Custom Action Update Step
