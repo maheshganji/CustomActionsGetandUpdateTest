@@ -64,7 +64,7 @@ jobs:
         # Uses an action in the root directory
         id: update1
         with:
-          change-request-number: ${{needs.custom_action_get2.outputs.changeRequestNumber}}# Active CR
+          change-request-number: ${{needs.custom_action_get.outputs.changeRequestNumber}}# Active CR
           devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
           devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
           instance-url: ${{ secrets.SN_INSTANCE_URL }}
@@ -74,7 +74,7 @@ jobs:
         run: echo "The Status of Update Change Request Details => ${{ steps.update1.outputs.status }}" 
   custom_action_update2:
     runs-on: ubuntu-latest
-    needs: custom_action_get
+    needs: custom_action_get2
     name: A Job to update change2
     steps:
       # To use this repository's private action,
