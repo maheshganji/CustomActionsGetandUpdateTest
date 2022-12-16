@@ -21,6 +21,7 @@ jobs:
           interval: '100'
           timeout: '3600'
   changeApproval2:
+    needs: changeApproval
     name: ServiceNow Change Approval2
     runs-on: ubuntu-latest
     steps:     
@@ -69,25 +70,9 @@ jobs:
       - name: Custom Action Update Step
         uses: maheshganji/custom-action-update@v1.1    
         # Uses an action in the root directory
-        id: update2
-        with:
-          change-request-number: ${{ steps.get.outputs.change-request-number }}# Active CR
-          devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
-          devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
-          instance-url: ${{ secrets.SN_INSTANCE_URL }}
-          context-github: ${{ toJSON(github) }}
-          change-request-details: '{ "work_notes":"updating the worknotes","short_description":"update function changed","description":"updated description"}' #Working Version
-      - name: Output of update
-        run: echo "The Status of Update Change Request Details => ${{ steps.update2.outputs.status }}"  
-        
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Custom Action Update Step
-        uses: maheshganji/custom-action-update@v1.1    
-        # Uses an action in the root directory
         id: update1
         with:
-          change-request-number: ${{ steps.get.outputs.change-request-number }}# Active CR
+          change-request-number: ${{needs.custom_action_get.outputs.changeRequestNumber}}# Active CR
           devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
           devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
           instance-url: ${{ secrets.SN_INSTANCE_URL }}
@@ -123,37 +108,3 @@ jobs:
       - name: Output of update
         run: echo "change-request-number = ${{ steps.get2.outputs.change-request-number }}" >> $GITHUB_OUTPUT
          #run: echo "The Status of Update Change Request Details => ${{ steps.update.outputs.change-request-number }}"
-         
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Custom Action Update Step
-        uses: maheshganji/custom-action-update@v1.1    
-        # Uses an action in the root directory
-        id: update3
-        with:
-          change-request-number: ${{ steps.get2.outputs.change-request-number }}# Active CR
-          devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
-          devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
-          instance-url: ${{ secrets.SN_INSTANCE_URL }}
-          context-github: ${{ toJSON(github) }}
-          change-request-details: '{ "work_notes":"Testing123","short_description":"update function changed","description":"updated description" }' #Working Version
-      - name: Output of update
-        run: echo "The Status of Update Change Request Details => ${{ steps.update3.outputs.status }}"  
-        
-        
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Custom Action Update Step
-        uses: maheshganji/custom-action-update@v1.1    
-        # Uses an action in the root directory
-        id: update4
-        with:
-          change-request-number: ${{ steps.get2.outputs.change-request-number }}# Active CR
-          devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
-          devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
-          instance-url: ${{ secrets.SN_INSTANCE_URL }}
-          context-github: ${{ toJSON(github) }}
-          change-request-details: '{ "work_notes":"Testing123","short_description":"update function changed","description":"updated description","state":"3","close_code":"successful","close_notes":"testing for change request" }' #Working Version
-      - name: Output of update
-        run: echo "The Status of Update Change Request Details => ${{ steps.update4.outputs.status }}"  
-
