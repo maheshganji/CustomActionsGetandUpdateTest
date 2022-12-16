@@ -26,4 +26,27 @@ jobs:
           change-details: '{"build_number":"3710276032/attempts/1","pipeline_name":"maheshganji/CustomActionsGetandUpdateTest/CustomActionGetWorkflow","stage_name":"ServiceNow Change Approval"}' #Working Version
       - name: Output of update
         run: echo "change-request-number = ${{ steps.get.outputs.change-request-number }}" >> $GITHUB_OUTPUT
-
+  custom_action_get2:
+    runs-on: ubuntu-latest
+    outputs:
+      changeRequestNumber2: ${{ steps.get2.outputs.change-request-number }}
+    name: A Job to get Change2
+    steps:
+      # To use this repository's private action,
+      # you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Custom Action Get Step2
+        uses: maheshganji/custom-action-get@master    
+        # Uses an action in the root directory
+        id: get2
+        with:
+          devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
+          devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
+          instance-url: ${{ secrets.SN_INSTANCE_URL }}
+          context-github: ${{ toJSON(github) }}
+          tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
+          change-details: '{"build_number":"3710276032/attempts/1","pipeline_name":"maheshganji/CustomActionsGetandUpdateTest/CustomActionGetWorkflow","stage_name":"ServiceNow Change Approval2"}' #Working Version
+      - name: Output of update
+        run: echo "change-request-number = ${{ steps.get2.outputs.change-request-number }}" >> $GITHUB_OUTPUT
+         #run: echo "The Status of Update Change Request Details => ${{ steps.update.outputs.change-request-number }}"
