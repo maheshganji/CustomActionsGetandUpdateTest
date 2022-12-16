@@ -114,12 +114,28 @@ jobs:
           
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Custom Action Get Step2
+        uses: maheshganji/custom-action-get@master    
+        # Uses an action in the root directory
+        id: get2
+        with:
+          devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
+          devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
+          instance-url: ${{ secrets.SN_INSTANCE_URL }}
+          context-github: ${{ toJSON(github) }}
+          tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
+          change-details: '{"build_number":"3710276032/attempts/1","pipeline_name":"maheshganji/CustomActionsGetandUpdateTest/CustomActionGetWorkflow","stage_name":"ServiceNow Change Approval2"}' #Working Version
+      - name: Output of update
+        run: echo "change-request-number = ${{ steps.get2.outputs.change-request-number }}" >> $GITHUB_OUTPUT
+          
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Custom Action Update Step
         uses: maheshganji/custom-action-update@v1.1    
         # Uses an action in the root directory
         id: update1
         with:
-          change-request-number: ${{needs.create2.outputs.number}}# Active CR
+          change-request-number: ${{needs.get2.outputs.change-request-number}}# Active CR
           devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
           devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
           instance-url: ${{ secrets.SN_INSTANCE_URL }}
