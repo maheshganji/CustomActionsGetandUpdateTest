@@ -21,6 +21,7 @@ jobs:
           interval: '100'
           timeout: '3600'
   changeApproval2:
+    needs: changeApproval
     name: ServiceNow Change Approval2
     runs-on: ubuntu-latest
     steps:     
