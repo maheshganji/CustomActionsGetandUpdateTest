@@ -63,7 +63,7 @@ jobs:
       - name: Output of update
         run: echo "change-request-number = ${{ steps.get.outputs.change-request-number }}" >> $GITHUB_OUTPUT
          #run: echo "The Status of Update Change Request Details => ${{ steps.update.outputs.change-request-number }}"
-    custom_action_get2:
+  custom_action_get2:
     needs: changeApproval2
     runs-on: ubuntu-latest
     outputs:
