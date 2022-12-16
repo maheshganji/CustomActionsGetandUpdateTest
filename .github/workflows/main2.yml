@@ -111,7 +111,10 @@ jobs:
           change-request: '{"setCloseCode":"true","attributes":{"short_description":"Automated Software Deployment","assignment_group":"a715cd759f2002002920bde8132e7018","description":"Automated Software Deployment.","implementation_plan":"Software update is tested and results can be found in Test Summaries Tab; When the change is approved the implementation happens automated by the CICD pipeline within the change planned start and end time window.","backout_plan":"When software fails in production, the previous software release will be re-deployed.","test_plan":"Testing if the software was successfully deployed"}}'
           interval: '100'
           timeout: '3600'
-          
+      - name: Output of update
+        run: echo "The Status of Update Change Request Details => ${{ toJSON(steps.create2.outputs.number) }}"
+      - name: Output of update
+        run: echo "The Status of Update Change Request Details => ${{ fromJSON(steps.create2.outputs.number) }}"
       - name: Checkout
         uses: actions/checkout@v3
       - name: Custom Action Update Step
@@ -119,7 +122,7 @@ jobs:
         # Uses an action in the root directory
         id: update1
         with:
-          change-request-number: ${{needs.create2.outputs.number}}# Active CR
+          change-request-number: ${{needs.create2.outputs}}# Active CR
           devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
           devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
           instance-url: ${{ secrets.SN_INSTANCE_URL }}
