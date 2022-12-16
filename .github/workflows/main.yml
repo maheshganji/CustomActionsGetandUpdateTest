@@ -20,34 +20,78 @@ jobs:
           change-request: '{"setCloseCode":"true","attributes":{"short_description":"Automated Software Deployment","assignment_group":"a715cd759f2002002920bde8132e7018","description":"Automated Software Deployment.","implementation_plan":"Software update is tested and results can be found in Test Summaries Tab; When the change is approved the implementation happens automated by the CICD pipeline within the change planned start and end time window.","backout_plan":"When software fails in production, the previous software release will be re-deployed.","test_plan":"Testing if the software was successfully deployed"}}'
           interval: '100'
           timeout: '3600'
+  changeApproval2:
+    name: ServiceNow Change Approval2
+    runs-on: ubuntu-latest
+    steps:     
+      - name: ServiceNow Change Approval2
+        uses: ServiceNow/servicenow-devops-change@v1.34.2
+        id: create2
+        with:
+          devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
+          devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
+          instance-url: ${{ secrets.SN_INSTANCE_URL }}
+          tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
+          context-github: ${{ toJSON(github) }}
+          job-name: 'ServiceNow Change Approval2'
+          change-request: '{"setCloseCode":"true","attributes":{"short_description":"Automated Software Deployment","assignment_group":"a715cd759f2002002920bde8132e7018","description":"Automated Software Deployment.","implementation_plan":"Software update is tested and results can be found in Test Summaries Tab; When the change is approved the implementation happens automated by the CICD pipeline within the change planned start and end time window.","backout_plan":"When software fails in production, the previous software release will be re-deployed.","test_plan":"Testing if the software was successfully deployed"}}'
+          interval: '100'
+          timeout: '3600'
+
   custom_action_get:
     needs: changeApproval
     runs-on: ubuntu-latest
     outputs:
-      changeRequestNumber: ${{ steps.update.outputs.change-request-number }}
+      changeRequestNumber: ${{ steps.get.outputs.change-request-number }}
     name: A Job to get Change
     steps:
       # To use this repository's private action,
       # you must check out the repository
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Custom Action Update Step
+      - name: Custom Action Get Step
         uses: maheshganji/custom-action-get@master    
         # Uses an action in the root directory
-        id: update
+        id: get
         with:
           devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
           devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
           instance-url: ${{ secrets.SN_INSTANCE_URL }}
           context-github: ${{ toJSON(github) }}
           tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
-          change-details: '{"build_number":"","pipeline_name":"maheshganji/CustomActionExecution/CustomActionGetWorkflow","stage_name":"ServiceNow Change Approval"}' #Working Version
+          change-details: '{"build_number":"","pipeline_name":"","stage_name":"ServiceNow Change Approval"}' #Working Version
       - name: Output of update
-        run: echo "change-request-number = ${{ steps.update.outputs.change-request-number }}" >> $GITHUB_OUTPUT
+        run: echo "change-request-number = ${{ steps.get.outputs.change-request-number }}" >> $GITHUB_OUTPUT
          #run: echo "The Status of Update Change Request Details => ${{ steps.update.outputs.change-request-number }}"
+    custom_action_get2:
+    needs: changeApproval2
+    runs-on: ubuntu-latest
+    outputs:
+      changeRequestNumber2: ${{ steps.get2.outputs.change-request-number }}
+    name: A Job to get Change2
+    steps:
+      # To use this repository's private action,
+      # you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Custom Action Get Step2
+        uses: maheshganji/custom-action-get@master    
+        # Uses an action in the root directory
+        id: get2
+        with:
+          devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
+          devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
+          instance-url: ${{ secrets.SN_INSTANCE_URL }}
+          context-github: ${{ toJSON(github) }}
+          tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
+          change-details: '{"build_number":"","pipeline_name":"","stage_name":"ServiceNow Change Approval"}' #Working Version
+      - name: Output of update
+        run: echo "change-request-number = ${{ steps.get2.outputs.change-request-number }}" >> $GITHUB_OUTPUT
+         #run: echo "The Status of Update Change Request Details => ${{ steps.update.outputs.change-request-number }}"
+
   custom_action_update:
     runs-on: ubuntu-latest
-    needs: custom_action_get
+    needs: custom_action_get2
     name: A Job to update change
     steps:
       # To use this repository's private action,
@@ -59,11 +103,11 @@ jobs:
         # Uses an action in the root directory
         id: update1
         with:
-          change-request-number: ${{needs.custom_action_get.outputs.changeRequestNumber}}# Active CR
+          change-request-number: ${{needs.custom_action_get2.outputs.changeRequestNumber2}}# Active CR
           devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
           devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
           instance-url: ${{ secrets.SN_INSTANCE_URL }}
           context-github: ${{ toJSON(github) }}
-          change-request-details: '{ "work_notes":"Testing123","short_description":"update function changed","description":"updated description" }' #Working Version
+          change-request-details: '{ "work_notes":"Testing123","short_description":"update function changed","description":"updated description","state":"4" }' #Working Version
       - name: Output of update
         run: echo "The Status of Update Change Request Details => ${{ steps.update1.outputs.status }}"  
