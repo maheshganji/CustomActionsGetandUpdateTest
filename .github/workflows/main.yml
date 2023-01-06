@@ -22,7 +22,7 @@ jobs:
           timeout: '3'
 
       - name: ServiceNow Change Approval3
-        uses: ServiceNow/servicenow-devops-change@v1.34.2
+        uses: maheshganji/custom-action-get@master
         id: create2
         with:
           devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
