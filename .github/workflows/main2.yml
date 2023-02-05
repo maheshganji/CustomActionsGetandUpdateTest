@@ -24,7 +24,7 @@ jobs:
           context-github: ${{ toJSON(github) }}
           tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
           change-details: '{"build_number":"4095369654","pipeline_name":"maheshganji/CustomActionsGetandUpdateTest/CustomActionGetWorkflow","stage_name":"ServiceNow Change Approval"}' #Working Version
-      - name: Output of update
+      - name: Output of Get
         run: echo "change-request-number = ${{ steps.get.outputs.change-request-number }}" >> $GITHUB_OUTPUT
   custom_action_get2:
     runs-on: ubuntu-latest
@@ -47,7 +47,7 @@ jobs:
           context-github: ${{ toJSON(github) }}
           tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
           change-details: '{"build_number":"4095369654","pipeline_name":"maheshganji/CustomActionsGetandUpdateTest/CustomActionGetWorkflow","stage_name":"ServiceNow Change Approval2"}' #Working Version
-      - name: Output of update
+      - name: Output of Get
         run: echo "change-request-number = ${{ steps.get2.outputs.change-request-number }}" >> $GITHUB_OUTPUT
          #run: echo "The Status of Update Change Request Details => ${{ steps.update.outputs.change-request-number }}"
   custom_action_update:
@@ -125,7 +125,7 @@ jobs:
           context-github: ${{ toJSON(github) }}
           tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
           change-details: '{"build_number":"","pipeline_name":"maheshganji/CustomActionsGetandUpdateTest/CustomActionGetWorkflow2","stage_name":"ServiceNow Change Approval2"}' #Working Version
-      - name: Output of update
+      - name: Output of Get
         run: echo "change-request-number = ${{ steps.get2.outputs.change-request-number }}" >> $GITHUB_OUTPUT
           
       - name: Checkout
