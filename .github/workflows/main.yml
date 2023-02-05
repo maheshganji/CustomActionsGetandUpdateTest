@@ -51,7 +51,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Custom Action Get Step
-        uses: maheshganji/custom-action-get@master    
+        uses: maheshganji/custom-action-get@main    
         # Uses an action in the root directory
         id: get
         with:
@@ -95,7 +95,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Custom Action Get Step2
-        uses: maheshganji/custom-action-get@master    
+        uses: maheshganji/custom-action-get@main    
         # Uses an action in the root directory
         id: get2
         with:
