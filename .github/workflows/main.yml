@@ -61,9 +61,9 @@ jobs:
           context-github: ${{ toJSON(github) }}
           tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
           change-details: '{"build_number":"","pipeline_name":"","stage_name":"ServiceNow Change Approval"}' #Working Version
-      - name: Output of update
-        run: echo "change-request-number = ${{ steps.get.outputs.change-request-number }}" >> $GITHUB_OUTPUT
-         #run: echo "The Status of Update Change Request Details => ${{ steps.update.outputs.change-request-number }}"
+#       - name: Output of update
+#         run: echo "change-request-number = ${{ steps.get.outputs.change-request-number }}" >> $GITHUB_OUTPUT
+#          #run: echo "The Status of Update Change Request Details => ${{ steps.update.outputs.change-request-number }}"
          
       - name: Checkout
         uses: actions/checkout@v3
@@ -78,8 +78,8 @@ jobs:
           instance-url: ${{ secrets.SN_INSTANCE_URL }}
           context-github: ${{ toJSON(github) }}
           change-request-details: '{ "work_notes":"Testing123","short_description":"update function changed","description":"updated description","state":"4" }' #Working Version
-      - name: Output of update
-        run: echo "The Status of Update Change Request Details => ${{ steps.update1.outputs.status }}"  
+#       - name: Output of update
+#         run: echo "The Status of Update Change Request Details => ${{ steps.update1.outputs.status }}"  
         
         
         
@@ -105,5 +105,5 @@ jobs:
           context-github: ${{ toJSON(github) }}
           tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
           change-details: '{"build_number":"","pipeline_name":"","stage_name":"ServiceNow Change Approval"}' #Working Version
-      - name: Output of update
-        run: echo "change-request-number = ${{ steps.get2.outputs.change-request-number }}" >> $GITHUB_OUTPUT
+#       - name: Output of Get
+#         run: echo "change-request-number = ${{ steps.get2.outputs.change-request-number }}" >> $GITHUB_OUTPUT
