@@ -100,7 +100,6 @@ jobs:
         run: echo "The Status of Update Change Request Details => ${{ steps.update1.outputs.status }}"  
         
         
-        
   custom_action_get2:
     needs: changeApproval2
     runs-on: ubuntu-latest
