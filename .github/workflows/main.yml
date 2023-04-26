@@ -68,7 +68,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Custom Action Update Step
-        uses: maheshganji/custom-action-update@v1.1    
+        uses:  maheshganji/custom-action-update@master
+#         maheshganji/custom-action-update@v1.1     
         # Uses an action in the root directory
         id: update1
         with:
