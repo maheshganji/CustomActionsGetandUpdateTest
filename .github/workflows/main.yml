@@ -59,7 +59,7 @@ jobs:
           devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
           instance-url: ${{ secrets.SN_INSTANCE_URL }}
           context-github: ${{ toJSON(github) }}
-          tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
+          tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }} +'2'
           change-details: '{"build_number":"","pipeline_name":"","stage_name":"ServiceNow Change Approval"}' #Working Version
       - name: Output of Get
         run: echo "change-request-number = ${{ steps.get.outputs.change-request-number }}" >> $GITHUB_OUTPUT
