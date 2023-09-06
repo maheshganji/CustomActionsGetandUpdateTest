@@ -24,6 +24,7 @@ jobs:
     needs: changeApproval
     name: ServiceNow Change Approval2
     runs-on: ubuntu-latest
+    
     steps:     
       - name: ServiceNow Change Approval2
         uses: ServiceNow/servicenow-devops-change@main
@@ -42,6 +43,7 @@ jobs:
   custom_action_get:
     needs: changeApproval
     runs-on: ubuntu-latest
+    continue-on-error: true
     outputs:
       changeRequestNumber: ${{ steps.get.outputs.change-request-number }}
     name: A Job to get Change
@@ -50,7 +52,6 @@ jobs:
       # you must check out the repository
       - name: Checkout
         uses: actions/checkout@v3
-        continue-on-error: true
       - name: Custom Action Get Step
         uses: maheshganji/custom-action-get@main    
         # Uses an action in the root directory
