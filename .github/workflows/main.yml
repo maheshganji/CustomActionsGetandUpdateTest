@@ -43,7 +43,7 @@ jobs:
   custom_action_get:
     needs: changeApproval
     runs-on: ubuntu-latest
-    continue-on-error: true
+    continue-on-error: false
     outputs:
       changeRequestNumber: ${{ steps.get.outputs.change-request-number }}
     name: A Job to get Change
