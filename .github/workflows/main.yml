@@ -50,6 +50,7 @@ jobs:
       # you must check out the repository
       - name: Checkout
         uses: actions/checkout@v3
+        continue-on-error: true
       - name: Custom Action Get Step
         uses: maheshganji/custom-action-get@main    
         # Uses an action in the root directory
@@ -61,7 +62,7 @@ jobs:
           context-github: ${{ toJSON(github) }}
           tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
           change-details: '{"build_number":"","pipeline_name":"123","stage_name":"ServiceNow Change Approval"}' #Working Version
-          continue-on-error: true
+      
       - name: Output of Get
         run: echo "change-request-number = ${{ steps.get.outputs.change-request-number }}" >> $GITHUB_OUTPUT
          #run: echo "The Status of Update Change Request Details => ${{ steps.update.outputs.change-request-number }}"
