@@ -23,7 +23,7 @@ jobs:
           interval: '100'
           timeout: '3600'
       - name: Output of create
-        run: echo "change-request-number = ${{ steps.create.outputs.results }}" >> $GITHUB_OUTPUT
+        run: echo "change-request-number = ${{ steps.create.outputs.change-request-number }}" >> $GITHUB_OUTPUT
          #run: echo "The Status of Update Change Request Details => ${{ steps.create.outputs.change-request-number}}"
   changeApproval2:
     needs: changeApproval
@@ -48,7 +48,7 @@ jobs:
           timeout: '3600'
           
       - name: Output of create
-        run: echo "change-request-number = ${{ steps.create2.outputs.results }}" >> $GITHUB_OUTPUT
+        run: echo "change-request-number = ${{ steps.create2.outputs.change-request-number }}" >> $GITHUB_OUTPUT
          #run: echo "The Status of Update Change Request Details => ${{ steps.create2.outputs.change-request-number }}"
 
   custom_action_get:
