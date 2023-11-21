@@ -10,7 +10,7 @@ jobs:
       result: ${{ steps.create.outputs.change-request-number}}
     steps:     
       - name: ServiceNow Change Approval
-        uses: ServiceNow/servicenow-devops-change@scratch/STRY56396136
+        uses: ServiceNow/servicenow-devops-change@dev
         id: create
         with:
           devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
@@ -34,7 +34,7 @@ jobs:
     
     steps:     
       - name: ServiceNow Change Approval2
-        uses: ServiceNow/servicenow-devops-change@scratch/STRY56396136
+        uses: ServiceNow/servicenow-devops-change@dev
         id: create2
         with:
           devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
